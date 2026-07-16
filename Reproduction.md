@@ -13,7 +13,8 @@
 6. Write models for each application
 7. I accidentally created separate commits for separate apps. That's redundant. So, squashing it. `git rebase -i HEAD ~7` and put `s` in the commits you want to squash to one.
 8. Add your apps to `settings.py` before making migrations.
-9. Run `uv run manage.py makemigrations`
+9. Run `uv run manage.py makemigrations` followed by `uv run manage.py migrate`
+10. Always create an admin user after running the initial migrations
 
 
 ## Code organization
@@ -23,13 +24,13 @@
         uv run django-admin startapp member
         uv run django-admin startapp author
         uv run django-admin startapp borrowing
-2. 
 
 
 ### Books Model
 + Since ISBN is only numbers followed by dashes. There is no point allowing characters of any kind other than numbers and dashes.
 + [This site](https://regex101.com/) has support for building Python style regex. So, since I don't know regex, `r"[0-9-]"`(remembering from using `sed` from 2 years ago) is what I tested and it worked.
 + But `re` and `Regex` would not match with `validators=` argument in `model.CharField`. Hence, a quick [Google lookup](https://www.google.com/search?q=regex+validation+django+models) showed that I could use `django.core.validators.RegexValidator`.
++ Update: Regex fails miserably because validation sucks. Mainly because I didn't know that ISBN-10 can contain an X in the last place. So, I tried: `r"[0-9X]"` but that allows X to appear anywhere and also in ISBN-13. So, I have to update my regex. Also, the regexx`r"[0-9-]"` sucks because I have already restricted usage of `-` in the model. So, going back to ISBN-10. So, this has to be right. `^(?:\d{9}[\dX]|\d{13})$`.
 
 ### Borrowing Model
 + We create a many to one relation from borrowing to member since one member can borrow many books.
