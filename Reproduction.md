@@ -31,6 +31,7 @@
 + [This site](https://regex101.com/) has support for building Python style regex. So, since I don't know regex, `r"[0-9-]"`(remembering from using `sed` from 2 years ago) is what I tested and it worked.
 + But `re` and `Regex` would not match with `validators=` argument in `model.CharField`. Hence, a quick [Google lookup](https://www.google.com/search?q=regex+validation+django+models) showed that I could use `django.core.validators.RegexValidator`.
 + Update: Regex fails miserably because validation sucks. Mainly because I didn't know that ISBN-10 can contain an X in the last place. So, I tried: `r"[0-9X]"` but that allows X to appear anywhere and also in ISBN-13. So, I have to update my regex. Also, the regexx`r"[0-9-]"` sucks because I have already restricted usage of `-` in the model. So, going back to ISBN-10. So, this has to be right. `^(?:\d{9}[\dX]|\d{13})$`.
++ The code for ISBN validation came from [this page](https://www.instructables.com/How-to-verify-a-ISBN/)
 
 ### Borrowing Model
 + We create a many to one relation from borrowing to member since one member can borrow many books.
