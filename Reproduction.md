@@ -10,6 +10,8 @@
 3. `uv add django djangorestframework` to add the dependencies
 4. `uv run django-admin startproject minsyslib .` because I don't want a separate project folder
 5. `uv run manage.py runserver` to check if I actually did the setup correct and application should be starting on the right port
+6. Write models for each application
+7. I accidentally created separate commits for separate apps. That's redundant. So, squashing it. `git rebase -i HEAD ~7` and put `s` in the commits you want to squash to one
 
 
 ## Code organization
