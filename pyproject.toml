@@ -8,3 +8,9 @@ dependencies = [
     "django>=6.0.7",
     "djangorestframework>=3.17.1",
 ]
+
+[tool.ruff]
+line-length = 80 # Personal preference
+
+[tool.ruff.format]
+preview = true
