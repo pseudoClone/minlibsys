@@ -31,14 +31,9 @@ class Borrowing(models.Model):
     def clean(self):
         super().clean()
 
-        if (
-            self.expected_return_at
-            and self.expected_return_at <= timezone.now()
-        ):
-            raise ValidationError(
-                "Expected Return time must be in future. Not now"
-            )
-
+        """ Expected date being greater than borrowed date implies that it is in future, right? 
+        In hands of god
+        """
         if self.borrowed_at and self.expected_return_at:
             if self.borrowed_at >= self.expected_return_at:
                 raise ValidationError(
