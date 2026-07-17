@@ -48,3 +48,11 @@
 + We don't need to refresh the latest state of DB in Django ORM unlike **Prisma** or **Drizzle**. Because Django automatically pull the latest state.
 + To not throw fatal exceptions, Django gives this really cool feature called [subtransaction](https://docs.djangoproject.com/en/6.0/topics/db/transactions/#:~:text=Wrapping%20atomic%20in%20a%20try/except%20block%20allows%20for%20natural%20handling%20of%20integrity%20errors%3A) And this allows me to handle exceptions without fatal errors. 
 + So some complex queries cannot be handled with ad-hoc queries. Hence for some models, we need to have custom querysets and they can be paired with custom query set managers as explained [here](https://medium.com/@sohampanchal1469/unlocking-the-power-of-django-managers-customizing-querysets-and-model-methods-0ffaae7bd40f#:~:text=class%20PublishedManager(models.Manager)%3A%0A%20%20%20%20def%20get_queryset(self)%3A%0A%20%20%20%20%20%20%20%20return%20PublishedQuerySet(self.model%2C%20using%3Dself._db))
+
+
+### Admin Panel
+
++ I love admin panel because this comes right after creating my favourite part i.e creating models. And for this, the idea is simple. We create admin panel to sift through different books and members and stuff.
++ So, I create admin classes for everything with filter and search fields for relevant stuff
++ Also, I love this cool decorator method called display that let's me alter anything on the admin page. And it helps me join the names in Author Admin
++ Could be fun if it used fuzzy search. But not really sure if it uses fuzzy search.
