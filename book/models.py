@@ -62,3 +62,6 @@ class BookCopy(models.Model):
     )
     book_uid = models.CharField(max_length=63, unique=True)
     # Globally unique in the sense that one transaction uses One Time Pad
+
+    def __str__(self):
+        return f"{self.book.title} | Copy number: {self.book_uid}"
