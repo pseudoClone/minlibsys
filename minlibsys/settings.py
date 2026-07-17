@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "book",
     "borrowing",
     "member",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
