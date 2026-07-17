@@ -54,13 +54,6 @@ class Book(models.Model):
     def __str__(self) -> str:
         return f"{self.title}"
 
-    def save(
-        self, *args, **kwargs
-    ):  # Since save won't call the validator, here it will call this on instance
-        # creation of this model
-        self.full_clean()
-        super().save(*args, **kwargs)
-
 
 class BookCopy(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
