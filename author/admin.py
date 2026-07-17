@@ -4,7 +4,7 @@ from .models import Author
 
 @admin.register(Author)
 class AuthorAdmin(admin.ModelAdmin):
-    list_display = "full_name"
+    list_display = ("full_name",)  # fmt: skip
 
     @admin.display(description="Full name", ordering="first_name")
     def full_name(self, obj):
