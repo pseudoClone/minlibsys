@@ -14,7 +14,8 @@
 7. I accidentally created separate commits for separate apps. That's redundant. So, squashing it. `git rebase -i HEAD ~7` and put `s` in the commits you want to squash to one.
 8. Add your apps to `settings.py` before making migrations.
 9. Run `uv run manage.py makemigrations` followed by `uv run manage.py migrate`
-10. Always create an admin user after running the initial migrations
+10. Always create an admin user after running the initial migrations `python manage.py createsuperuser`
+11. Since, admin panel is not configured with the model with `ModelAdmin`, I won't touch it for now.
 
 
 ## Code organization
@@ -39,3 +40,9 @@
 + Here, from my time working with SQL for an interview, I remember that indices are ordered. And by adding the constraint, I am enforcing that using the unique index, `book_copy.id` must be unique for all the rows where `book_copy.id == NULL`.
 + So the work of the index is that we are creating it in the `book_copy`. So, every `id` of book_copy gets a unique index, but if the `returned_at` is `NULL` i.e if the book has not been returned, we cannot create a new index on it or in business logic, we cannot create a new entry for it's borrowing.
 + The models.Q is a `Q Object` which I searched from that helps me to set condition for enforcing uniqueness. I didn't know this. Hence, [Google](https://www.google.com/search?q=how+to+enforce+uniqueness+of+a+row+in+django&sca_esv=17108f0ef32378c7&ei=AqpYarfzD-WWwcsP4d2e2A8&biw=1495&bih=775&ved=0ahUKEwi3_IPB9taVAxVlS3ADHeGuB_sQ4dUDCBI&uact=5&oq=how+to+enforce+uniqueness+of+a+row+in+django).
+
+### Borrowing Logic
++ So, the first headache is renewal, and while `expected_return_at` and `borrowed_at` are both editable, it wouldn't be nice to extend it or edit it. Instead, renewal should be, press a button or activate a flag and we set it to returned and make a new transaction. But then again, how many times a person can renew? Can he/she hog the book by renewing it endlessly? Nope. So, there must be a renewing logic. I am still conflicted as to if I make this a logic based feature or model constraint based framework using window functions of SQL.
++ For now, Google AI told me to use renewal_count model for this problem, to check how many renews are done and using services to track the state.
++ So, for this I will use services, name derived from [NestJS Services](https://github.com/pseudoClone/lynxBackend/blob/main/src/links/links.service.ts), Controllers and Modules, somehow common in Django too.
++ We don't need to refresh the latest state of DB in Django ORM unlike **Prisma** or **Drizzle**. Because Django automatically pull the latest state.
