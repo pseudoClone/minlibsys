@@ -1,14 +1,15 @@
 from member.models import User  # For Pyright TypeHints, broken still
+from book.models import Book, BookCopy
 from django.core.exceptions import ValidationError
 from django.utils import timezone
-from django.db import transaction
+from django.db import transaction, IntegrityError
 from .models import Borrowing
 
 
 # Why service? Check reproduction docs
 class BorrowingService:
     @staticmethod
-    def validate_if_user_eligible(member: User):
+    def validate_if_user_eligible(member: "member.models.User"):
         if not member.is_active:
             raise ValidationError(
                 "User not active. Only active users can make transactions"
@@ -41,12 +42,16 @@ class BorrowingService:
         expected_return_at = borrowed_at + timezone.timedelta(
             days=duration_days
         )
-        return Borrowing.objects.create(
-            member=member,
-            book_copy=book_copy,
-            borrowed_at=borrowed_at,
-            expected_return_at=expected_return_at,
-        )
+        try:
+            with transaction.atomic():
+                return Borrowing.objects.create(
+                    member=member,
+                    book_copy=book_copy,
+                    borrowed_at=borrowed_at,
+                    expected_return_at=expected_return_at,
+                )
+        except IntegrityError:
+            raise ValidationError("Book copy already borrowed. Concurrency")
 
     @staticmethod
     @transaction.atomic
@@ -73,3 +78,26 @@ class BorrowingService:
         borrowing.renewal_count += 1
         borrowing.save()
         return borrowing
+
+    @staticmethod
+    def get_available_copy(book: Book) -> BookCopy:
+        available_copies = (
+            BookCopy.objects
+            .filter(book=book)
+            .exclude(borrowings__returned_at__isnull=True)
+            .first()
+        )
+        if not available_copies:
+            raise ValidationError("No copies available of this book")
+        return available_copies
+
+    @staticmethod
+    def borrow_book_by_id(member, book_id, duration_days=7) -> Borrowing:
+        try:
+            book = Book.objects.get(pk=book_id)
+        except Book.DoesNotExist:
+            raise ValidationError("Requested book does not exist")
+        book_copy = BorrowingService.get_available_copy(book=book)
+        return BorrowingService.borrow_book(
+            member=member, book_copy=book_copy, duration_days=duration_days
+        )
