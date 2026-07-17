@@ -56,3 +56,8 @@
 + So, I create admin classes for everything with filter and search fields for relevant stuff
 + Also, I love this cool decorator method called display that let's me alter anything on the admin page. And it helps me join the names in Author Admin
 + Could be fun if it used fuzzy search. But not really sure if it uses fuzzy search.
+
+
+### Serializers
++ DRF has serializers which are literally what the name says, serializers for different things in the app like requests and models. Protobuf, JSON, XML are all serialization formats and this is the first time I have had to work with this serious serialization configuration.
++ So, first, I make DRF serializers. And only then routes and stuff. And finally OpenAPI integration. Might(Big might) even see, SwaggerUI like the way FastAPI does
