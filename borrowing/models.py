@@ -15,6 +15,7 @@ class Borrowing(models.Model):
     borrowed_at = models.DateTimeField(default=timezone.now)
     expected_return_at = models.DateTimeField()
     returned_at = models.DateTimeField(blank=True, null=True)
+    renewal_count = models.SmallIntegerField(default=0)
 
     def __str__(self) -> str:
         return f"{self.member.email} borrowing {self.book_copy}"
@@ -31,8 +32,8 @@ class Borrowing(models.Model):
     def clean(self):
         super().clean()
 
-        """ Expected date being greater than borrowed date implies that it is in future, right? 
-        In hands of god
+        """ Expected date being greater than borrowed date implies 
+        that it is in future, right? In hands of god
         """
         if self.borrowed_at and self.expected_return_at:
             if self.borrowed_at >= self.expected_return_at:
