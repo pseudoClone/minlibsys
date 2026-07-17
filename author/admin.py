@@ -1,3 +1,11 @@
 from django.contrib import admin
+from .models import Author
 
-# Register your models here.
+
+@admin.register(Author)
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = "full_name"
+
+    @admin.display(description="Full name", ordering="first_name")
+    def full_name(self, obj):
+        return f"{obj.first_name} {obj.last_name}".strip()
