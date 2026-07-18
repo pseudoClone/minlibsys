@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "borrowing",
     "member",
     "rest_framework",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE = [
@@ -124,3 +125,12 @@ USE_TZ = True
 AUTH_USER_MODEL = "member.User"
 
 STATIC_URL = "static/"
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Minlibsys API",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
