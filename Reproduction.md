@@ -66,3 +66,10 @@
 ### Testing
 + Until now, I have never done testing wiht DRF or with Django. So, this is new. So, as per the [docs](https://docs.djangoproject.com/en/6.0/topics/testing/overview/#:~:text=from%20django.test%20import,cat%20says%20%22meow%22%27), and actually I can see it too, that every app has it's own test files and the project wide testing can be created with a tests directory. I will take the first approach for unit testing. E2E testing is beyond the scope of this project.
 + For now, I only check if 2 people or more can borrow the same book and nothing more. Manually adding books and member can be automated but that would mean that has to be dependency injection which Django does not support. Until then, I will do it manually. I love FastAPI and Nest.js because of this.
+
+
+### OpenAPI compatibility
+
++ A quick [search](https://www.google.com/search?q=drf+spectacular+vs+drf+yasg) tells me that I should use drf-spectacular for generating API docs.
++ I don't know how to do this plumbing because I expect it to work like it does with FastAPI but still I will install it as the [docs say](https://drf-spectacular.readthedocs.io/en/latest/readme.html#requirements:~:text=3.15%2C%203.16%2C%203.17-,Installation,-%C2%B6).
++ Almost everything should be out-of-the-box plug and play for this but I still have to update some project wide settings and urls for api docs.
