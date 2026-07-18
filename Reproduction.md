@@ -61,3 +61,8 @@
 ### Serializers
 + DRF has serializers which are literally what the name says, serializers for different things in the app like requests and models. Protobuf, JSON, XML are all serialization formats and this is the first time I have had to work with this serious serialization configuration.
 + So, first, I make DRF serializers. And only then routes and stuff. And finally OpenAPI integration. Might(Big might) even see, SwaggerUI like the way FastAPI does
+
+
+### Testing
++ Until now, I have never done testing wiht DRF or with Django. So, this is new. So, as per the [docs](https://docs.djangoproject.com/en/6.0/topics/testing/overview/#:~:text=from%20django.test%20import,cat%20says%20%22meow%22%27), and actually I can see it too, that every app has it's own test files and the project wide testing can be created with a tests directory. I will take the first approach for unit testing. E2E testing is beyond the scope of this project.
++ 
