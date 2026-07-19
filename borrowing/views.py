@@ -5,10 +5,12 @@ from .models import Borrowing
 from .serializers import BorrowingInfoSerializer, BorrowRequestSerializer
 from .services import BorrowingService
 from book.models import BookCopy
+from rest_framework.permissions import IsAuthenticated
 
 
 class BorrowingViewSet(viewsets.ModelViewSet):
     serializer_class = BorrowingInfoSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return Borrowing.objects.all().select_related(
