@@ -6,9 +6,11 @@ from drf_spectacular.views import (
     SpectacularAPIView,
     SpectacularSwaggerView,
 )
+from book.views import BookViewSet
 
 router = DefaultRouter()
 router.register(r"borrowings", BorrowingViewSet, basename="borrowing")
+router.register(r"books", BookViewSet, basename="book")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
