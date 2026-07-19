@@ -7,6 +7,7 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 from book.views import BookViewSet
+from member.views import MemberRegistrationView
 
 router = DefaultRouter()
 router.register(r"borrowings", BorrowingViewSet, basename="borrowing")
@@ -20,6 +21,9 @@ urlpatterns = [
         include("rest_framework.urls", namespace="rest_framework"),
     ),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path(
+        "api/register/", MemberRegistrationView.as_view(), name="registration"
+    ),
     path(
         "api/docs/",
         SpectacularSwaggerView.as_view(url_name="schema"),
