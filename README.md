@@ -45,3 +45,7 @@ uv run manage.py migrate
 ```bash
 uv run manage.py createsuperuser
 ```
+
+# Limitations
+1. Should have used PostgreSQL but that would mean separate server and I would need to package the application and DB server, both with Docker. While that could be done because of my work with Docker and Podman earlier, making a strong API system is priority here.
+2. Never done unit tests automatically before , and, it's still new to me, hence, it will take time to test all of the different systems such as auth, querying system, Django exceptions(because DRF exceptions are non existent), and borrowing edge cases.
