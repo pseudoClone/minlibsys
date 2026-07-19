@@ -7,7 +7,7 @@ Simple and Robust Django Rest Framework(DRF) library system.
 # What one can do with it
 + View available books
 + Make borrowings(upto limits)
-+ Return books
++ Return books(on time)
 + Extend the return date of books
 + Read API specifications using Swagger UI
 
