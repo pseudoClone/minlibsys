@@ -5,14 +5,17 @@ from django.core.exceptions import ValidationError
 from django.db.models import Count, Q, F
 
 
-# Writing my custom QuerySet manager for custom a method that returns a queryset
+# Writing my custom QuerySet manager for a custom method that returns a queryset
 class BookQuerySet(models.QuerySet):
     def with_availability_counts(self):
         return self.annotate(
             total_copies=Count("bookcopies", distinct=True),
             unavailable_copies=Count(
                 "bookcopies",
-                filter=Q(bookcopies__borrowings__returned_at__isnull=True),
+                filter=Q(
+                    bookcopies__borrowings__isnull=False,
+                    bookcopies__borrowings__returned_at__isnull=True,
+                ),
                 distinct=True,
             ),
         ).annotate(available_copies=F("total_copies") - F("unavailable_copies"))
