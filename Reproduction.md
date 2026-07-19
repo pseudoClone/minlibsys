@@ -73,3 +73,13 @@
 + A quick [search](https://www.google.com/search?q=drf+spectacular+vs+drf+yasg) tells me that I should use drf-spectacular for generating API docs.
 + I don't know how to do this plumbing because I expect it to work like it does with FastAPI but still I will install it as the [docs say](https://drf-spectacular.readthedocs.io/en/latest/readme.html#requirements:~:text=3.15%2C%203.16%2C%203.17-,Installation,-%C2%B6).
 + Almost everything should be out-of-the-box plug and play for this but I still have to update some project wide settings and urls for api docs.
+
+### Viewset protection
++ For viewset protection, we can just use DRF `IsAuthenticated`
++ But this goes way back to authetication using a scalable method, like that one time I used [Django-allauth](https://github.com/pseudoClone/profile-dashboard)
+
+
+### Features
++ For now, this has the basics but one thing that is needed is fine accumulation which is another story because I am thinking of cron jobs to auto increase the fine as the days pass for a user when he/she has not returned the book past their expected and scalable secure authentication because while we ask the user for e-mail, it is not a required field. And the authentication is done from the `AbstractUser` class using the username.
++ The issues with email is that, while I can use the `Django Validator` for validating the email string, there is no simple way to check if the email is valid. And having used temporary emails to sign-up for services, my hypocricy does not let me setup a simple email validator. This needs a proper setup.
++ But then again I searched for [temp email sign up detection Django](https://www.google.com/search?sxsrf=APpeQnusDQoVaKkfoghwS_8NZ4kaFMDUBA:1784437331048&udm=web&q=temporary+email+sign+up+detection+Django) and subsequently led me to [this repo](https://github.com/disposable-email-domains/disposable-email-domains)
