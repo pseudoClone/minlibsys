@@ -45,6 +45,12 @@ uv run manage.py migrate
 ```bash
 uv run manage.py createsuperuser
 ```
+## Docker version
+To run the docker version, ensure that the new docker-buildx package is in the system.
+`sudo pacman -S docker-buildx` or the relevant package install command of the distro repository
+1. `docker buildx build -t minlibsysimage .`
+2. `docker run -p 8000:8000 --name minlibsyscontainer minlibsysimage`
+
 
 # Limitations
 1. Should have used PostgreSQL but that would mean separate server and I would need to package the application and DB server, both with Docker. While that could be done because of my work with Docker and Podman earlier, making a strong API system is priority here.
