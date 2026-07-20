@@ -91,3 +91,6 @@
 + In the code, the AllowAny permission guard is for the fact, that anyone should be able to create accounts, and not like other protected methods where I restricted them to allow only the authenticated users.
 + [This page](https://pavansaibolliboina.medium.com/django-rest-framework-generics-91d3d095baa2#:~:text=from%20rest_framework.generics%20import%20CreateAPIView%0Afrom%20.models%20import%20Book%0Afrom%20.serializers%20import%20BookSerializer%0A%0Aclass%20BookCreateAPIView(CreateAPIView)%3A%0A%20%20%20%20queryset%20%3D%20Book.objects.all()%0A%20%20%20%20serializer_class%20%3D%20BookSerializer) was a godsend for generics
 + Finally like before we have to create API routes for signing up members/users. And that means, I need to go back to global [urls file](./minlibsys/urls.py)
+
+### Microservices
++ I love microservices and hence, "dockerzing" this would be the smart choice. And since I don't have another db server, making a compose file is not necessary. Hence the [Dockerfile](./Dockerfile). And the application will bind to all network interfaces because I use WSL2 on Windows for my development and I want it available on my browser in my host machine which is Windows 11.
