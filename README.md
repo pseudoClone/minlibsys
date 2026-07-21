@@ -4,6 +4,8 @@
 
 Simple and Robust Django Rest Framework(DRF) library system.
 
+For API documentation, following the below steps, the URL is: [localhost:8000/api/docs](http://localhost:8000/api/docs)
+
 # What one can do with it
 + View available books
 + Make borrowings(upto limits)
